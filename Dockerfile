@@ -16,8 +16,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libunwind8 \
     netcat \
     libssl1.0 \
+    npm \ 
   && rm -rf /var/lib/apt/lists/*
-
+RUN apt-get install -y wget apt-transport-https software-properties-common
+RUN wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+RUN dpkg -i packages-microsoft-prod.deb
+RUN apt-get update
+RUN apt-get install -y powershell
+RUN apt-get install -y dotnet-sdk-7.0
+RUN apt-get install -y dotnet-sdk-6.0
 RUN curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
   && rm -rf /var/lib/apt/lists/*
 
